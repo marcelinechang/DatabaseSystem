@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sys List</title>
+</head>
+<body>
+    <h1>Sys List</h1>
+    <table border="1">
+        <tr>
+            <th>variable</th>
+            <th>value</th>
+            <th>set_time</th>
+            <th>set_by</th>
+        </tr>
+        {% for sys_col in sys_config %}
+        <tr>
+            <td>{{ sys_col[0] }}</td>
+            <td>{{ sys_col[1] }}</td>
+            <td>{{ sys_col[2] }}</td>
+            <td>{{ sys_col[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

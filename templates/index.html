@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Data</title>
+</head>
+<body>
+    <h1>What's Your Zodiac Sign</h1>
+    <form method="POST">
+        <!-- Nickname input -->
+        <label for="nickname">Nickname:</label>
+        <input type="text" id="nickname" name="nickname" required><br><br>
+
+        <!-- Zodiac sign dropdown -->
+        <label for="zodiac">Zodiac Sign:</label>
+        <select id="zodiac" name="zodiac" required>
+            <option value="" disabled selected>Select your zodiac sign</option>
+            <option value="aries">Aries</option>
+            <option value="taurus">Taurus</option>
+            <option value="gemini">Gemini</option>
+            <option value="cancer">Cancer</option>
+            <option value="leo">Leo</option>
+            <option value="virgo">Virgo</option>
+            <option value="libra">Libra</option>
+            <option value="scorpio">Scorpio</option>
+            <option value="sagittarius">Sagittarius</option>
+            <option value="capricorn">Capricorn</option>
+            <option value="aquarius">Aquarius</option>
+            <option value="pisces">Pisces</option>
+        </select><br><br>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- 顯示資料的表格 -->
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Zodiac_Sign</th>
+            <th>Date</th>
+        </tr>
+        {% for data in tables %}
+        <tr>
+            <td>{{ data['id'] }}</td>
+            <td>{{ data['nickname'] }}</td>
+            <td>{{ data['zodiac_sign'] }}</td>
+            <td>{{ data['created_at'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
