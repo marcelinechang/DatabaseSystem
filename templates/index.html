@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Read Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <h1>What's Your Zodiac Sign</h1>
@@ -34,12 +35,12 @@
         <button type="submit">Submit</button>
     </form>
 
-    <!-- 顯示資料的表格 -->
+    <!-- Data table -->
     <table border="1">
         <tr>
             <th>ID</th>
             <th>Nickname</th>
-            <th>Zodiac_Sign</th>
+            <th>Zodiac Sign</th>
             <th>Date</th>
         </tr>
         {% for data in tables %}
