@@ -1,31 +1,16 @@
-from flask import Flask, render_template
-import mysql.connector
+from flask import Flask
+from create import create_bp
+from read import read_bp
+from update import update_bp
+from delete import delete_bp
 
 app = Flask(__name__)
 
-# MySQL database connection
-def get_db_connection():
-    connection = mysql.connector.connect(
-        host="localhost",  
-        user="root",       
-        password="2024database", 
-        database="sys"  
-    )
-    return connection
-
-@app.route('/')
-def index():
-    # Fetch data from the sys_config table
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM sys_config")
-    sys_config = cursor.fetchall()
-    
-    cursor.close()
-    connection.close()
-    
-    # Render the external HTML template
-    return render_template('sys_table.html', sys_config=sys_config)
+# Register the blueprints
+app.register_blueprint(create_bp)  # Register create_bp
+app.register_blueprint(read_bp)
+app.register_blueprint(update_bp)
+app.register_blueprint(delete_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)

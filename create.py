@@ -30,4 +30,4 @@ def add_post():
     conn.close()
         
     # Redirect to another page after successful submission
-    return redirect(url_for('index_test'))
+    return redirect(url_for('read_bp.index'))
