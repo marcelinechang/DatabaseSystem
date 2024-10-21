@@ -29,3 +29,5 @@
    - Visit: [MongoDB Community Server Download](https://www.mongodb.com/try/download/community)
    - The version I used is MacOS arm64 8.0.1.
    - Reference: [MongoDB Installation on MacBook Pro with Apple Silicon Chip (M3)](https://medium.com/@meetwithIT/mongodb-installation-on-macbook-pro-with-apple-silicon-chip-m3-f1fea73da739)
+    
+3. **Creating a New Connection in MongoDB Compass**
