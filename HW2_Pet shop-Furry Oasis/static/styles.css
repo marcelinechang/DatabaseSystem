@@ -1,0 +1,185 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    background-image: url('7701c6d60f18f23f99f356cb95161fcb.jpg'); /* Background image */
+    background-repeat: repeat;
+}
+
+h1 {
+    text-align: center;
+    color: #8B7C71;
+    padding: 10px;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    
+}
+
+
+/* Tab Section */
+.tab {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #ccc; /* 預設邊框 */
+    border-radius: 5px; /* 圓角效果 */
+    overflow: hidden;
+    background-color: rgba(244, 230, 221, 0.6); /* 背景色 */
+    margin-right: -1px; /* 避免邊框重疊 */
+    position: relative;
+}
+
+/* 分隔線設置，每個 tab 之間有分隔線，最後一個除外 */
+.tab:not(:last-child) {
+    border-right: 1px solid #ccc;
+}
+
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #555;
+}
+
+.tab button:hover {
+    background-color: #C8B0A4;
+}
+
+.tab button.active {
+    background-color: #B4A79F;
+    color: #333333;
+}
+
+/* Tab Content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(244, 230, 221, 0.8);
+    margin-bottom: 20px;
+}
+
+/* Add spacing between the two tab sections */
+.tab-section {
+    margin-top: 40px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #C3947B;
+}
+
+th, td {
+    padding: 8px; /* 與之前的樣式一致 */
+}
+
+/* Form Styles */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Button Styles */
+button[type="submit"] {
+    background-color: #C8B0A4;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #B4A79F;
+}
+
+/* Connection Class Layout */
+.Connection {
+    display: inline-block;
+    width: 45%;
+    margin: 10px 5px;
+    box-sizing: border-box;
+}
+
+.Connection label {
+    display: inline-block;
+    width: 100%;
+}
+
+/* Connection Class Layout */
+.Filter {
+    display: inline-block;
+    width: 45%;
+    margin: 10px 5px;
+    box-sizing: border-box;
+}
+
+.Filter label {
+    display: inline-block;
+    width: 100%;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .Connection {
+        width: 100%;
+        margin: 0;
+    }
+
+    .tab button {
+        float: none;
+        display: block;
+        width: 100%;
+    }
+
+    .tabcontent {
+        padding: 10px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}

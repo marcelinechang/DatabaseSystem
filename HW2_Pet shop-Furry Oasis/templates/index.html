@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Dashboard with Multiple Tab Sections</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    
+</head>
+<body>
+
+<h1>Furry Oasis</h1>
+
+<!-- First Tab Section -->
+<div class="tab-section">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Upcoming Appointments', 'section1')">Upcoming Appointments</button>
+        <button class="tablinks" onclick="openTab(event, 'Make-Appointments-New', 'section1')">Makeing Appointments (New Customer/Pet)</button>
+        <button class="tablinks" onclick="openTab(event, 'Make Appointments(Existed Pet)', 'section1')">Makeing Appointments (Existed Pet)</button>
+        <button class="tablinks" onclick="openTab(event, 'Add Services', 'section1')">Adding Services</button>
+    </div>
+
+    <div id="Upcoming Appointments" class="tabcontent section1">
+        <div class="Filter">
+            <!-- Species Dropdown -->
+            <label>Filter:</label>
+            <select id="species-filter" name="species-filter">
+                <option value="">All Species</option>
+                {% for sp in species_options %}
+                <option value="{{ sp }}">{{ sp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="Filter">
+            <!-- Service Dropdown -->
+            <select id="service-filter" name="service-filter">
+                <option value="">All Services</option>
+                {% for sp in service_options %}
+                <option value="{{ sp }}">{{ sp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <table>
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Pet Name</th>
+                    <th>Species</th>
+                    <th>Owner Name</th>
+                    <th>Phone</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Service</th>
+                </tr>
+            </thead>
+            <tbody id="appointmentTable">
+                {% for data in upcoming_appointments %}
+                <tr>
+                    <td>{{ data['appointment_id'] }}</td>
+                    <td>{{ data['pet_name'] }}</td>
+                    <td>{{ data['species'] }}</td>
+                    <td>{{ data['owner_name'] }}</td>
+                    <td>{{ data['phone'] }}</td>
+                    <td>{{ data['date'] }}</td>
+                    <td>{{ data['time'] }}</td>
+                    <td>{{ data['service'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="Make-Appointments-New" class="tabcontent section1">
+        <form action="{{ url_for('create_bp.new_add_appointment') }}" method="POST">
+
+        <!-- Pet Owner input -->
+        <h2>Pet Owner</h2>
+        
+        <div>
+
+            <div class="Connection">
+                <label for="first_name">Frist Name:</label>
+                <input type="text" id="first_name" name="first_name" autocomplete="off"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="birthday">Birthday:</label>
+                <input type="date" id="birthday" name="birthday"><br><br>
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="Connection">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone" name="phone"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email"><br><br>
+            </div>
+
+        </div>
+
+
+        <h2>Pet Info</h2>
+        
+        <div>
+            <div class="Connection">
+                <label for="owner_phone">Owner's Phone:</label>
+                <input type="text" id="owner_phone" name="owner_phone"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="pet_name">Pet Name:</label>
+                <input type="text" id="pet_name" name="pet_name" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="sex">Sex:</label>
+                <select id="sex" name="sex" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Unknown">Unknown</option>
+                </select><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="species">Species:</label>
+                <select id="species" name="species" required onchange="checkOtherSpecies()">
+                    <option value="" disabled selected>Select</option>
+                    <!-- Loop through species options dynamically from the database -->
+                    {% for sp in species_options %}
+                    <option value="{{ sp }}">{{ sp }}</option>
+                    {% endfor %}
+                    <option value="other">Other</option>
+                </select><br><br>
+                <!-- Hidden input field for custom species when "other" is selected -->
+            </div>
+
+            <div class="Connection">
+            <div id="otherSpeciesDiv" style="display:none;">
+                <label for="other_species">Please specify:</label>
+                <input type="text" id="other_species" name="other_species">
+            </div>
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="Connection">
+                <label for="birth_year">Birth Year:</label>
+                <input type="number" id="birth_year" name="birth_year" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="height">Height:</label>
+                <input type="number" step=0.01 id="height" name="height"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="weight">Weight:</label>
+                <input type="number" step=0.01 id="weight" name="weight"><br><br>
+            </div>
+
+        </div>
+
+        <!-- Appointment input -->
+        <h2>Appointment</h2>
+        
+        <div>
+
+            <div class="Connection">
+                <label for="appointment_date">Date:</label>
+                <input type="date" id="appointment_date" name="appointment_date" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="appointment_time">Time:</label>
+                <input type="time" id="appointment_time" name="appointment_time" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="appointment_type">Purpose:</label>
+                <select id="appointment_type" name="appointment_type" required>
+                    <option value="" disabled selected>Select</option>
+                    {% for sp in service_options %}
+                    <option value="{{ sp }}">{{ sp }}</option>
+                    {% endfor %}
+                </select><br><br>
+            </div>
+
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+
+
+    <div id="Make Appointments(Existed Pet)" class="tabcontent section1">
+        <form action="{{ url_for('create_bp.existed_add_appointment') }}" method="POST">
+
+        <h2>Appointment Info</h2>
+        
+        <div>
+            <div class="Connection">
+                <label for="owner_phone">Owner's Phone:</label>
+                <input type="text" id="owner_phone" name="owner_phone"><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="pet_name">Pet Name:</label>
+                <input type="text" id="pet_name" name="pet_name" required><br><br>
+            </div>
+
+        </div>
+
+
+        <!-- Appointment input -->
+        
+        <div>
+
+            <div class="Connection">
+                <label for="appointment_date">Date:</label>
+                <input type="date" id="appointment_date" name="appointment_date" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="appointment_time">Time:</label>
+                <input type="time" id="appointment_time" name="appointment_time" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="appointment_type">Purpose:</label>
+                <select id="appointment_type" name="appointment_type" required>
+                    <option value="" disabled selected>Select</option>
+                    {% for sp in service_options %}
+                    <option value="{{ sp }}">{{ sp }}</option>
+                    {% endfor %}
+                </select><br><br>
+            </div>
+
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+
+
+
+
+
+    <div id="Add Services" class="tabcontent section1">
+        <form action="{{ url_for('create_bp.add_service') }}" method="POST">
+
+        <!-- Service input -->      
+        <div>
+            <h2>New Service</h2>
+            <div class="Connection">
+                <label for="service_name">Service Name:</label>
+                <input type="text" id="service_name" name="service_name" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="service_type">Service Type:</label>
+                <select id="service_type" name="service_type" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="grooming">grooming</option>
+                    <option value="medical">medical</option>
+                    <option value="boarding">boarding</option>
+                </select><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" required><br><br>
+            </div>
+        </div>
+
+        <div>
+            <div class="Connection">
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required><br><br>
+            </div>
+
+            <div class="Connection">
+                <label for="duration">Duration:</label>
+                <input type="number" id="duration" name="duration" required><br><br>
+            </div>
+
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+</div>
+
+<!-- Second Tab Section -->
+<div class="tab-section">
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Customer', 'section2')">Customer</button>
+        <button class="tablinks" onclick="openTab(event, 'Pet', 'section2')">Pet</button>
+        <button class="tablinks" onclick="openTab(event, 'Appointment', 'section2')">Appointment</button>
+        <button class="tablinks" onclick="openTab(event, 'Service', 'section2')">Service</button>
+    </div>
+
+    <div id="Customer" class="tabcontent section2">
+    <form action="{{ url_for('delete_bp.delete_customer') }}" method="POST">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Customer ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birthday</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Registered Date</th>
+                    <th>Last Updated Date</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in customer_info %}
+                <tr>
+                    <td><input type="checkbox" name="customer_ids" value="{{ data['customer_id'] }}"></td>
+                    <td>{{ data['customer_id'] }}</td>
+                    <td>
+                        <input type="text" name="first_name_{{ data['customer_id'] }}" value="{{ data['first_name'] }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="last_name_{{ data['customer_id'] }}" value="{{ data['last_name'] }}" required>
+                    </td>
+                    <td>
+                        <input type="date" name="birthday_{{ data['customer_id'] }}" value="{{ data['birthday'] }}" required>
+                    </td>
+                    <td>
+                        <input type="text" name="phone_{{ data['customer_id'] }}" value="{{ data['phone'] }}" required>
+                    </td>
+                    <td>
+                        <input type="email" name="email_{{ data['customer_id'] }}" value="{{ data['email'] }}" required>
+                    </td>
+                    <td>{{ data['registered_date'] }}</td>
+                    <td>{{ data['last_updated_at'] }}</td>
+                    <td>
+                        <!-- Update button for each post -->
+                        <button type="submit" formaction="{{ url_for('update_bp.update_customer', post_id=data['customer_id']) }}" class="btn btn-success">Update</button>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Delete Selected</button>
+    </form>
+    </div>
+
+    <div id="Pet" class="tabcontent section2">
+    <form action="{{ url_for('delete_bp.delete_pet') }}" method="POST">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Pet ID</th>
+                    <th>Pet Name</th>
+                    <th>Owner ID</th>
+                    <th>Sex</th>
+                    <th>Species</th>
+                    <th>Birth Year</th>
+                    <th>Height (cm)</th>
+                    <th>Weight (kg)</th>
+                    <th>Registered Date</th>
+                    <th>Last Updated Date</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in pet_info %}
+                <tr>
+                    <td><input type="checkbox" name="pet_ids" value="{{ data['pet_id'] }}"></td>
+                    <td>{{ data['pet_id'] }}</td>
+                    <td>
+                        <input type="text" name="pet_name_{{ data['pet_id'] }}" value="{{ data['pet_name'] }}" required>
+                    </td>
+                    <td>{{ data['owner_id'] }}</td>
+                    <td>
+                        <select name="sex_{{ data['pet_id'] }}" required>
+                            <option value="Male" {% if data.sex == "Male" %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if data.sex == "Female" %}selected{% endif %}>Female</option>
+                            <option value="Unknown" {% if data.sex == "Unknown" %}selected{% endif %}>Unknown</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="species_{{ data['pet_id'] }}" required >
+                            {% for sp in species_options %}
+                            <option value="{{ sp }}" {% if data.species == sp %}selected{% endif %}>{{ sp }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" name="birth_year_{{ data['pet_id'] }}" value="{{ data['birth_year'] }}" required><br><br>
+                    </td>
+                    <td>
+                        <input type="number" step = 0.01 name="height_{{ data['pet_id'] }}" value="{{ data['height'] }}" required><br><br>
+                    </td>
+                    <td>
+                        <input type="number" step = 0.01 name="weight_{{ data['pet_id'] }}" value="{{ data['weight'] }}" required><br><br>
+                    </td>
+                    <td>{{ data['registered_date'] }}</td>
+                    <td>{{ data['last_updated_at'] }}</td>
+                    <td>
+                        <!-- Update button for each post -->
+                        <button type="submit" formaction="{{ url_for('update_bp.update_pet', post_id=data['pet_id']) }}" class="btn btn-success">Update</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Delete Selected</button>
+    </form>
+    </div>
+
+    <div id="Appointment" class="tabcontent section2">
+    <form action="{{ url_for('delete_bp.delete_appointment') }}" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Appointment ID</th>
+                    <th>Pet ID</th>
+                    <th>Owner ID</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Purpose</th>
+                    <th>Created At</th>
+                    <th>Last Updated At</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in appointment_info %}
+                <tr>
+                    <td><input type="checkbox" name="appointment_ids" value="{{ data['appointment_id'] }}"></td>
+                    <td>{{ data['appointment_id'] }}</td>
+                    <td>{{ data['pet_id'] }}</td>
+                    <td>{{ data['owner_id'] }}</td>
+                    <td>
+                        <input type="date" name="appointment_date_{{ data['appointment_id'] }}" value="{{ data['appointment_date'] }}" required>
+                    </td>
+                    <td>
+                        <input type="time" name="appointment_time_{{ data['appointment_id'] }}" value="{{ data['appointment_time'] }}" required>
+                    </td>
+                    <td>
+                        <input type="number" name="purpose_{{ data['appointment_id'] }}" value="{{ data['purpose'] }}" required><br><br>
+                    </td>
+                    <td>{{ data['created_at'] }}</td>
+                    <td>{{ data['last_updated_at'] }}</td>
+                    <td>
+                        <!-- Update button for each post -->
+                        <button type="submit" formaction="{{ url_for('update_bp.update_appointment', post_id=data['appointment_id']) }}" class="btn btn-success">Update</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Delete Selected</button>
+    </form>
+    </div>
+
+
+    <div id="Service" class="tabcontent section2">
+        <form action="{{ url_for('delete_bp.delete_appointment') }}" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Service ID</th>
+                    <th>Service Name</th>
+                    <th>Service Type</th>
+                    <th>Description</th>
+                    <th>Price (NTD)</th>
+                    <th>Dutation (Minute)</th>
+                    <th>Created At</th>
+                    <th>Last Updated At</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in service_info %}
+                <tr>
+                    <td><input type="checkbox" name="service_ids" value="{{ data['service_id'] }}"></td>
+                    <td>{{ data['service_id'] }}</td>
+                    <td>
+                        <input type="text" name="service_name_{{ data['service_id'] }}" value="{{ data['service_name'] }}" required>
+                    </td>
+                    <td>
+                        <select name="service_type_{{ data['service_id'] }}" required>
+                            <option value="grooming" {% if data.service_type == "grooming" %}selected{% endif %}>grooming</option>
+                            <option value="medical" {% if data.service_type == "medical" %}selected{% endif %}>medical</option>
+                            <option value="boarding" {% if data.service_type == "boarding" %}selected{% endif %}>boarding</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="description_{{ data['service_id'] }}" value="{{ data['description'] }}" required>
+                    </td>
+                    <td>
+                        <input type="number" name="price_{{ data['service_id'] }}" value="{{ data['price'] }}" required><br><br>
+                    </td>
+                    <td>
+                        <input type="number" name="duration_minutes_{{ data['service_id'] }}" value="{{ data['duration_minutes'] }}" required><br><br>
+                    </td>
+                    <td>{{ data['created_at'] }}</td>
+                    <td>{{ data['last_updated_at'] }}</td>
+                    <td>
+                        <!-- Update button for each post -->
+                        <button type="submit" formaction="{{ url_for('update_bp.update_service', post_id=data['service_id']) }}" class="btn btn-success">Update</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Delete Selected</button>
+    </form>
+    </div>
+</div>
+
+
+
+<script>
+    function openTab(evt, tabName, section) {
+        var i, tabcontent, tablinks;
+
+        // Get all tab content elements in the section
+        tabcontent = document.getElementsByClassName(section);
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all tab links in the section and deactivate them
+        tablinks = evt.currentTarget.parentNode.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Show input field if "other" species is selected
+    function checkOtherSpecies() {
+        const speciesSelect = document.getElementById('species');
+        const otherSpeciesDiv = document.getElementById('otherSpeciesDiv');
+        
+        if (speciesSelect.value === 'other') {
+            otherSpeciesDiv.style.display = 'block';
+        } else {
+            otherSpeciesDiv.style.display = 'none';
+        }
+    }
+
+    // Initialize both tab sections
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('.tablinks')[0].click();  // First tab of first section
+        document.querySelectorAll('.tablinks')[4].click();  // First tab of second section
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const speciesSelect = document.getElementById('species-filter');
+    const serviceSelect = document.getElementById('service-filter');
+    const tableBody = document.getElementById('appointmentTable');
+
+
+    // Function to filter the table rows
+    function filterTable() {
+        const species = speciesSelect.value;
+        const service = serviceSelect.value;
+
+        // Get all rows in the table body
+        const rows = tableBody.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const speciesCell = row.querySelector('td:nth-child(3)').textContent;
+            const serviceCell = row.querySelector('td:nth-child(8)').textContent;
+
+            // Show or hide the row based on the filter
+            const speciesMatch = !species || speciesCell === species;
+            const serviceMatch = !service || serviceCell === service;
+
+            if (speciesMatch && serviceMatch) {
+                row.style.display = ''; // Show row
+            } else {
+                row.style.display = 'none'; // Hide row
+            }
+        });
+    }
+
+    // Add event listeners for the select elements
+    speciesSelect.addEventListener('change', filterTable);
+    serviceSelect.addEventListener('change', filterTable);
+});
+
+
+</script>
+
+</body>
+</html>
