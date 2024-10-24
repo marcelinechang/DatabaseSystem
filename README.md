@@ -16,6 +16,10 @@
 * Used Flask and MySQL to build a web application and database  
 * Implemented Create, Read, Update, and Delete (CRUD) functionality
 
+**HW2** :  
+Database ER Diagarm
+![Screenshot](./HW2_Petshop-FurryOasis/er_diagram.png)
+
  # Notes #
 
 ## How to Install MongoDB on a MacBook Pro with M3 Chips ##
