@@ -12,11 +12,12 @@
  # Video Presentations for Homework #
 
  **HW1** :
-[What's Your Zodiac Sign](https://youtu.be/qHA9-f-NW98)   
+[What's Your Zodiac Sign](https://youtu.be/qHA9-f-NW98) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW2_ZodiacSign)   
 * Used Flask and MySQL to build a web application and database  
 * Implemented Create, Read, Update, and Delete (CRUD) functionality
 
-**HW2** : [A Mock Database for a Pet Care Center - Furry Oasis](https://youtu.be/v_XagPPHcP4)   
+**HW2** : [A Mock Database for a Pet Care Center - Furry Oasis](https://youtu.be/v_XagPPHcP4) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW2_PetCareCenter-FurryOasis)  / [Database ER Diagarm](https://app.eraser.io/workspace/V90JlxaSMDJYiLstcw9Z?origin=share&elements=Qjr-M0vQJZT9-Wzr4UENtg)  
+
 * **Upcoming Appointments Section**:
    * Displays a list of scheduled appointments over the next 7 days, including today.
    * Includes relevant details such as appointment date, time, and pet information.
@@ -26,7 +27,6 @@
 * **Filtering Options**:
    * Allows filtering of appointments by species and type of service.
  
-[Database ER Diagarm](https://app.eraser.io/workspace/V90JlxaSMDJYiLstcw9Z?origin=share&elements=Qjr-M0vQJZT9-Wzr4UENtg)
 ![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram.png)
 
  # Notes #
