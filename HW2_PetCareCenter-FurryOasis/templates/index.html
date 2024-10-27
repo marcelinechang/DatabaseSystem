@@ -16,8 +16,8 @@
 <div class="tab-section">
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Upcoming Appointments', 'section1')">Upcoming Appointments</button>
-        <button class="tablinks" onclick="openTab(event, 'Make-Appointments-New', 'section1')">Makeing Appointments (New Customer/Pet)</button>
-        <button class="tablinks" onclick="openTab(event, 'Make Appointments(Existed Pet)', 'section1')">Makeing Appointments (Existed Pet)</button>
+        <button class="tablinks" onclick="openTab(event, 'Make-Appointments-New', 'section1')">Making Appointments (New Customer/Pet)</button>
+        <button class="tablinks" onclick="openTab(event, 'Make Appointments(Existed Pet)', 'section1')">Making Appointments (Existed Pet)</button>
         <button class="tablinks" onclick="openTab(event, 'Add Services', 'section1')">Adding Services</button>
     </div>
 
@@ -484,7 +484,7 @@
 
 
     <div id="Service" class="tabcontent section2">
-        <form action="{{ url_for('delete_bp.delete_appointment') }}" method="POST">
+        <form action="{{ url_for('delete_bp.delete_service') }}" method="POST">
         <table>
             <thead>
                 <tr>

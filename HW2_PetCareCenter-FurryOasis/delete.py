@@ -19,12 +19,10 @@ def delete_customer():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        # 定義要刪除的表與對應的字段
         tables = [('customer', 'customer_id'), 
                   ('pet', 'owner_id'), 
                   ('appointment', 'owner_id')]
 
-        # 迴圈刪除不同表中的相關記錄
         for table, column in tables:
             delete_query = f"DELETE FROM {table} WHERE {column} IN (%s)" % ','.join(['%s'] * len(selected_ids))
             cursor.execute(delete_query, tuple(selected_ids))
@@ -44,11 +42,9 @@ def delete_pet():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        # 定義要刪除的表與對應的字段
         tables = [('pet', 'pet_id'), 
                   ('appointment', 'pet_id')]
 
-        # 迴圈刪除不同表中的相關記錄
         for table, column in tables:
             delete_query = f"DELETE FROM {table} WHERE {column} IN (%s)" % ','.join(['%s'] * len(selected_ids))
             cursor.execute(delete_query, tuple(selected_ids))
@@ -86,7 +82,7 @@ def delete_service():
         conn = mysql.connector.connect(**db_config)
         cursor = conn.cursor()
 
-        delete_query = "DELETE FROM service WHERE service_ids IN (%s)" % ','.join(['%s'] * len(selected_ids))
+        delete_query = "DELETE FROM service WHERE service_id IN (%s)" % ','.join(['%s'] * len(selected_ids))
         cursor.execute(delete_query, tuple(selected_ids))
 
         conn.commit()

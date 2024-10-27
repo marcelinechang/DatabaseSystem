@@ -18,9 +18,6 @@ def update_customer(post_id):
     new_birthday = request.form.get(f'birthday_{post_id}')
     new_phone = request.form.get(f'phone_{post_id}')
     new_email = request.form.get(f'email_{post_id}')
-
-    if not new_first_name and not new_last_name and not new_birthday and not new_phone and not new_email:
-        return "No content to update", 400  
     
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
@@ -47,9 +44,6 @@ def update_pet(post_id):
     new_birth_year = request.form.get(f'birth_year_{post_id}')
     new_height = request.form.get(f'height_{post_id}')
     new_weight = request.form.get(f'weight_{post_id}')
-
-    # if not new_pet_name and not new_sex and not new_species and not new_birth_year and not new_height and not new_weight:
-    #     return "No content to update", 400  
     
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
@@ -73,9 +67,6 @@ def update_appointment(post_id):
     new_appointment_date = request.form.get(f'appointment_date_{post_id}')
     new_appointment_time = request.form.get(f'appointment_time_{post_id}')
     new_purpose = request.form.get(f'purpose_{post_id}')
-
-    # if not new_pet_name and not new_sex and not new_species and not new_birth_year and not new_height and not new_weight:
-    #     return "No content to update", 400  
     
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
@@ -100,10 +91,7 @@ def update_service(post_id):
     new_service_type = request.form.get(f'service_type_{post_id}')
     new_description = request.form.get(f'description_{post_id}')
     new_price = request.form.get(f'price_{post_id}')
-    new_duration_minutes = request.form.get(f'duration_minutes_{post_id}')
-
-    # if not new_pet_name and not new_sex and not new_species and not new_birth_year and not new_height and not new_weight:
-    #     return "No content to update", 400  
+    new_duration_minutes = request.form.get(f'duration_minutes_{post_id}') 
     
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
