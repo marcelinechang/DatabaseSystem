@@ -12,7 +12,7 @@
  # Video Presentations for Homework #
 
  **HW1** :
-[What's Your Zodiac Sign](https://youtu.be/qHA9-f-NW98) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW2_ZodiacSign)   
+[What's Your Zodiac Sign](https://youtu.be/qHA9-f-NW98) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW1_ZodiacSign)   
 * Used Flask and MySQL to build a web application and database  
 * Implemented Create, Read, Update, and Delete (CRUD) functionality
 
