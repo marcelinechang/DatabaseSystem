@@ -21,7 +21,7 @@
 * **Upcoming Appointments Section**:
    * Displays a list of scheduled appointments over the next 7 days, including today.
    * Includes relevant details such as appointment date, time, and pet information.
-* **Appointment Creation Features**:
+* **Appointment CRUD Features Features**:
    * Options to make new appointments for both existing and new pets.
    * Interactive forms include fields for pet and owner details, type of service (grooming, boarding, medical), and appointment scheduling preferences.
 * **Filtering Options**:
