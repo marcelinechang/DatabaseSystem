@@ -27,7 +27,7 @@
 * **Filtering Options**:
    * Allows filtering of appointments by species and type of service.
  
-![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram.png)
+![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram1.png)
 
  # Notes #
 
