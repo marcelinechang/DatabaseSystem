@@ -16,9 +16,18 @@
 * Used Flask and MySQL to build a web application and database  
 * Implemented Create, Read, Update, and Delete (CRUD) functionality
 
-**HW2** :  
+**HW2** : [A Mock Database for a Pet Care Center - Furry Oasis](https://youtu.be/v_XagPPHcP4)   
+* **Upcoming Appointments Section**:
+   * Displays a list of scheduled appointments over the next 7 days, including today.
+   * Includes relevant details such as appointment date, time, and pet information.
+* **Appointment Creation Features**:
+   * Options to make new appointments for both existing and new pets.
+   * Interactive forms include fields for pet and owner details, type of service (grooming, boarding, medical), and appointment scheduling preferences.
+* **Filtering Options**:
+   * Allows filtering of appointments by species and type of service.
+ 
 [Database ER Diagarm](https://app.eraser.io/workspace/V90JlxaSMDJYiLstcw9Z?origin=share&elements=Qjr-M0vQJZT9-Wzr4UENtg)
-![Screenshot](./HW2_Petshop-FurryOasis/er_diagram.png)
+![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram.png)
 
  # Notes #
 
