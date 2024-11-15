@@ -29,6 +29,8 @@
  
 ![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram.png)
 
+**HW3** : [Tell Me About U](https://youtu.be/y3Db4-Dd6WQ) / 
+
  # Notes #
 
 ## How to Install MongoDB on a MacBook Pro with M3 Chips ##
