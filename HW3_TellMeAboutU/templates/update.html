@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Your Record</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            background-image: url("{{ url_for('static', filename='16f97a52ac19c13d65ccac644abf4f32.jpg') }}");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 40%;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            width: 30%;
+            text-align: right;
+            margin-right: 10px;
+        }
+        .form-group input[type="text"], .form-group select {
+            width: 70%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group p {
+            width: 75%;
+            padding: 8px;
+            margin: 0;
+            text-align: left;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #06B5B0;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #48a7a4;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 20px;
+            background-color: #7595D2;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Your Record</h1>
+        <form action="{{ url_for('update.update', id=entry['_id']) }}" method="POST">
+            {% for key, value in entry.items() %}
+                {% if key != '_id' %}
+                    <div class="form-group">
+                        <label for="{{ key }}">{{ key | capitalize }}:</label>
+                        
+                        {% if key == 'zodiac' %}
+                            <!-- Dropdown for Zodiac Sign -->
+                            <select name="zodiac" id="zodiac">
+                                <option value="aries" {% if value == "aries" %}selected{% endif %}>Aries</option>
+                                <option value="taurus" {% if value == "taurus" %}selected{% endif %}>Taurus</option>
+                                <option value="gemini" {% if value == "gemini" %}selected{% endif %}>Gemini</option>
+                                <option value="cancer" {% if value == "cancer" %}selected{% endif %}>Cancer</option>
+                                <option value="leo" {% if value == "leo" %}selected{% endif %}>Leo</option>
+                                <option value="virgo" {% if value == "virgo" %}selected{% endif %}>Virgo</option>
+                                <option value="libra" {% if value == "libra" %}selected{% endif %}>Libra</option>
+                                <option value="scorpio" {% if value == "scorpio" %}selected{% endif %}>Scorpio</option>
+                                <option value="sagittarius" {% if value == "sagittarius" %}selected{% endif %}>Sagittarius</option>
+                                <option value="capricorn" {% if value == "capricorn" %}selected{% endif %}>Capricorn</option>
+                                <option value="aquarius" {% if value == "aquarius" %}selected{% endif %}>Aquarius</option>
+                                <option value="pisces" {% if value == "pisces" %}selected{% endif %}>Pisces</option>
+                            </select>
+                        {% elif key == 'created_at' %}
+                            <p>{{ value }}</p>
+                        {% else %}
+                            <!-- Text input for other fields -->
+                            <input type="text" name="{{ key }}" id="{{ key }}" value="{{ value }}">
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+            <input type="submit" value="Update">
+        </form>
+        
+        <a href="{{ url_for('index') }}" class="button">Go back to Home</a>
+    </div>
+</body>
+</html>
