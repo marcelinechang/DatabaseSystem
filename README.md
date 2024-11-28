@@ -36,6 +36,8 @@
 * Adding buttons for querying data and toggling the display or hiding of all records.
 * Designing the update page to dynamically display content based on the selected data.
 
+**HW4** : [Personal Preference Information](https://youtu.be/ILfGN8aaCIs) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW4_PersonalPreferenceInformation)  
+
  # Notes #
 
 ## How to Install MongoDB on a MacBook Pro with M3 Chips ##
