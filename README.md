@@ -29,7 +29,12 @@
  
 ![Screenshot](./HW2_PetCareCenter-FurryOasis/er_diagram.png)
 
-**HW3** : [Tell Me About U](https://youtu.be/y3Db4-Dd6WQ) / 
+**HW3** : [Tell Me About U](https://youtu.be/y3Db4-Dd6WQ) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW3_TellMeAboutU)  
+* Creating a NoSQL database using MongoDB.
+* Implementing Create, Read, and Update functionality.
+* Developing a multi-page web application, with separate pages for adding and updating data.
+* Adding buttons for querying data and toggling the display or hiding of all records.
+* Designing the update page to dynamically display content based on the selected data.
 
  # Notes #
 
