@@ -37,6 +37,9 @@
 * Designing the update page to dynamically display content based on the selected data.
 
 **HW4** : [Personal Preference Information](https://youtu.be/ILfGN8aaCIs) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/HW4_PersonalPreferenceInformation)  
+* Implements a confirmation dialog to prevent accidental deletions, ensuring data integrity.
+* Allows filtering of records based on selected fields. Users can select multiple fields for precise results, or leave all fields unselected to apply a global search.
+* Automatically adapts to the available fields in each record, enabling efficient and relevant modifications.
 
  # Notes #
 
