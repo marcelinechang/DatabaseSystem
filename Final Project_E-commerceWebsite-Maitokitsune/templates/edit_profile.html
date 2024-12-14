@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">修改會員資料</h2>
+
+    <!-- 修改資料表單 -->
+    <form method="POST">
+        <div class="mb-3">
+            <label for="firstname" class="form-label">名字</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" value="{{ user_info.firstname }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastname" class="form-label">姓氏</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" value="{{ user_info.lastname }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user_info.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">電話</label>
+            <input type="text" class="form-control" id="phone" name="phone" value="{{ user_info.phone }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">地址</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{ user_info.address }}" required>
+        </div>
+        <button type="submit" class="btn btn-custom">儲存變更</button>
+    </form>
+</div>
+{% endblock %}

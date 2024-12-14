@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MaitoKitsune{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+      body {
+        padding-top:150px;
+        padding-bottom:100px;
+        background-image: url("{{ url_for('static', filename='admin_dog.jpg') }}"); 
+        background-size: contain;
+        background-repeat: repeat;
+        background-position: center;
+        background-attachment: fixed;
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .table-container {
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            padding: 15px; /* 增加內距以避免文字緊貼邊界 */
+            border-radius: 8px; /* 添加圓角效果 */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 添加輕微陰影 */
+        }
+        .content-wrapper {
+            background-color: rgba(255, 255, 255, 0.7); /* 白色背景 */
+            border-radius: 8px;       /* 圓角 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 輕微陰影 */
+            padding: 20px;           /* 內邊距 */
+        }
+        .btn-custom {
+            background-color: #71a5de; /* 自訂背景色 */
+            color: white; /* 文字顏色 */
+            border: none; /* 可選：移除邊框 */
+        }
+        .btn-custom:hover {
+            background-color: #aecbeb; /* 設定懸停時的顏色 */
+            color: white; /* 文字顏色 */
+        }
+        .btn-custom-danger {
+            background-color: #de7ea0;
+            color: white;
+            border: none;
+        }
+        .btn-custom-danger:hover {
+            background-color: #e0a2b9; 
+            color: white;
+        }
+        .btn-custom-warning {
+            background-color: #ea8c55;
+            color: white;
+            border: none;
+        }
+        .btn-custom-warning:hover {
+            background-color: #faa275; 
+            color: white;
+        }
+        .btn-custom-success {
+            background-color: #6b9080; 
+            color: white; 
+            border: none;
+        }
+        .btn-custom-success:hover {
+            background-color: #a4c3b2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+          <img src="{{ url_for('static', filename='logo_nobakground.png') }}" alt="MaitoKitsune" style="height: 80px; margin-right: 10px;">
+        </a>
+        <a class="navbar-brand">麥與狐狸管理員後台</a>
+        <div class="navbar-nav">
+            {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link" href="{{ url_for('admin.dashboard') }}">儀表板</a>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        訂單管理
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="memberDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.pending_orders') }}">待處理</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.completed_orders') }}">已完成</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="memberDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        商品管理
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="memberDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('admin.add_product') }}">新增商品</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('admin.view_product') }}">修改商品</a></li>
+                    </ul>
+                </div>
+                <a class="nav-item nav-link" href="{{ url_for('admin.logout') }}">登出</a>
+            {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('admin.login') }}">登入</a>
+                <a class="nav-item nav-link" href="{{ url_for('admin.register') }}">註冊</a>
+            {% endif %}
+        </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+          {% for category, message in messages %}
+              <div class="alert alert-{{ category or 'info' }} alert-dismissible fade show flash-message" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+          {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+        {% block content %}
+
+        <div class="container">
+            <h2>銷售最佳產品</h2>
+            <canvas id="topProductsChart" width="400" height="200" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 10px;"></canvas>
+        </div>  
+
+        <div class="container mt-5">
+            <h2>庫存量低的產品</h2>
+            <div class="table-container">
+            <table id="lowStockTable" class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>產品名稱</th>
+                        <th>口味</th>
+                        <th>大小</th>
+                        <th>庫存量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 資料將由 JavaScript 動態填充 -->
+                </tbody>
+            </table>
+            </div>
+        </div> 
+        {% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // 向後端請求資料
+        const response = await fetch('/admin/top-products');
+        const data = await response.json();
+    
+        // 分離產品名稱與銷售數據
+        const labels = data.map(item => `${item.product_name}\n${item.flavor}\n${item.size}`);
+        const quantities = data.map(item => item.total_quantity);
+    
+        // 建立圖表
+        const ctx = document.getElementById('topProductsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '銷售數量',
+                    data: quantities,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                // 以 \n 分割標籤為多行
+                                const lines = this.getLabelForValue(value).split('\n');
+                                return lines;
+                            },
+                            font: {
+                                size: 12 // 調整字體大小
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true // Y 軸從 0 開始
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            boxWidth: 10 // 圖例框大小
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>     
+<script> 
+    document.addEventListener('DOMContentLoaded', async () => {
+        // 獲取庫存不足產品資料
+        const response = await fetch('/admin/low-stock-products');
+        const data = await response.json();
+    
+        // 確定沒有錯誤後動態更新表格
+        if (Array.isArray(data)) {
+            const tableBody = document.getElementById('lowStockTable').querySelector('tbody');
+            tableBody.innerHTML = ''; // 清空表格內容
+    
+            // 遍歷資料並動態生成表格列
+            data.forEach(item => {
+                const row = document.createElement('tr');
+    
+                row.innerHTML = `
+                    <td>${item.product_name}</td>
+                    <td>${item.flavor}</td>
+                    <td>${item.size}</td>
+                    <td>${item.stock}</td>
+                `;
+    
+                tableBody.appendChild(row);
+            });
+        } else if (data.error) {
+            console.error(data.error);
+        }
+    });
+</script>    
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = document.querySelectorAll('.toggle-details');
+      
+      buttons.forEach(button => {
+          button.addEventListener('click', async () => {
+              const orderId = button.getAttribute('data-order-id');
+              const detailsRow = document.getElementById(`details-${orderId}`);
+              const contentDiv = detailsRow.querySelector('.order-details-content');
+      
+              if (detailsRow.classList.contains('d-none')) {
+                  button.textContent = '收回詳情';
+                  detailsRow.classList.remove('d-none');
+      
+                  // 發送請求到後端以獲取訂單項目
+                  try {
+                      const response = await fetch(`/admin//orders/${orderId}/details`);
+                      const orderItems = await response.json();
+                      console.log('訂單詳情:', orderItems);
+      
+                      // 構建表格內容
+                      let tableContent = '<table class="table"><thead><tr><th>商品名稱</th><th>種類</th><th>容量</th><th>數量</th><th>價格</th></tr></thead><tbody>';
+                      orderItems.forEach(item => {
+                          tableContent += `
+                              <tr>
+                                  <td>${item.name}</td>
+                                  <td>${item.flavor}</td>
+                                  <td>${item.size}</td>
+                                  <td>${item.quantity}</td>
+                                  <td>${item.price}</td>
+                              </tr>
+                          `;
+                      });
+                      tableContent += '</tbody></table>';
+      
+                      // 填充到內容區域
+                      contentDiv.innerHTML = tableContent;  // 動態生成並顯示表格
+      
+                  } catch (error) {
+                      console.error('載入詳情時發生錯誤:', error);
+                  }
+              } else {
+                  button.textContent = '訂單詳情';
+                  detailsRow.classList.add('d-none');
+              }
+          });
+      });
+  });
+  
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteButtons = document.querySelectorAll('.delete-order');
+    
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const orderId = button.getAttribute('data-order-id');
+    
+                if (confirm('確定要刪除此訂單嗎？')) {
+                    try {
+                        const response = await fetch(`/admin/orders/${orderId}/delete`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        const result = await response.json();
+    
+                        if (result.success) {
+                            alert(result.message);
+                            location.reload();
+                        } else {
+                            alert(result.message);
+                        }
+                    } catch (error) {
+                        console.error('刪除訂單時發生錯誤:', error);
+                        alert('刪除失敗，請稍後再試');
+                    }
+                }
+            });
+        });
+    });
+    
+</script>
+<script>
+    document.getElementById('add-variant').addEventListener('click', () => {
+        const variantSection = document.getElementById('variant-section');
+        const newVariant = document.querySelector('.variant').cloneNode(true);
+        newVariant.querySelectorAll('input').forEach(input => input.value = '');
+        variantSection.appendChild(newVariant);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove-variant')) {
+            const variant = e.target.closest('.variant');
+            if (document.querySelectorAll('.variant').length > 1) {
+                variant.remove();
+            } else {
+                alert('至少需要一個選項！');
+            }
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const deleteButtons = document.querySelectorAll('.delete-product');
+        
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const productId = button.getAttribute('data-product-id');
+                
+                if (confirm('確定要刪除此商品嗎？這將刪除該商品的所有資訊。')) {
+                    try {
+                        const response = await fetch(`/admin/products/${productId}/delete`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' }
+                        });
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            alert(result.message);
+                            location.reload(); // 刷新頁面
+                        } else {
+                            alert(result.message);
+                        }
+                    } catch (error) {
+                        console.error('刪除商品時發生錯誤:', error);
+                        alert('刪除失敗，請稍後再試');
+                    }
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordField = document.getElementById('password');
+    
+        togglePassword.addEventListener('click', () => {
+            // 切換密碼欄位的類型
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+    
+            // 切換按鈕圖示
+            togglePassword.innerHTML = type === 'text' 
+                ? '<i class="bi bi-eye"></i>' 
+                : '<i class="bi bi-eye-slash"></i>';
+        });
+    });
+</script> 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 獲取所有 flash 訊息元素
+        const flashMessages = document.querySelectorAll('.flash-message');
+  
+        // 設定每個訊息在 2 秒後自動消失
+        flashMessages.forEach(message => {
+            setTimeout(() => {
+                const alert = new bootstrap.Alert(message);
+                alert.close();
+            }, 2000); // 2 秒
+        });
+    });
+</script>   
+</body>
+</html>
+

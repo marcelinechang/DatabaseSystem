@@ -1,0 +1,54 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>新增商品</h2>
+    <div class="content-wrapper">
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">商品名稱</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">商品描述</label>
+            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">商品圖片</label>
+            <input type="file" class="form-control" id="image" name="image" accept=".png, .jpg, .jpeg, .gif">
+        </div>
+        
+        <h3 class="mt-4">商品選項</h3>
+        <div id="variant-section" class="mb-3">
+            <div class="row g-3 variant">
+                <div class="col-md-3">
+                    <label for="flavor" class="form-label">口味</label>
+                    <input type="text" class="form-control" name="flavor" required>
+                </div>
+                <div class="col-md-3">
+                    <label for="size" class="form-label">尺寸</label>
+                    <input type="text" class="form-control" name="size" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="price" class="form-label">價格</label>
+                    <input type="number" class="form-control" name="price" step="0.01" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="stock" class="form-label">庫存</label>
+                    <input type="number" class="form-control" name="stock" required>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="button" class="btn btn-custom-danger remove-variant">移除</button>
+                </div>
+            </div>
+        </div>
+        
+        <button type="button" id="add-variant" class="btn btn-custom-success mb-3">新增選項</button>
+        <div>
+            <button type="submit" class="btn btn-custom">新增商品</button>
+            <a href="{{ url_for('admin.view_product') }}" class="btn btn-secondary">取消</a>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

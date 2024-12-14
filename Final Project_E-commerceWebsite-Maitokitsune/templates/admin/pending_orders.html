@@ -1,0 +1,55 @@
+{% extends "admin/dashboard.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>訂單查詢</h2>
+    {% if orders %}
+        <div class="table-container">
+            <table class="table table-striped" id="orders-table">
+                <thead>
+                    <tr>
+                        <th>訂單編號</th>
+                        <th>訂購人姓名</th>
+                        <th>建立時間</th>
+                        <th>總金額</th>
+                        <th>訂單狀態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.username }}</td>
+                            <td>{{ order.created_at }}</td>
+                            <td>${{ order.total_price }}</td>
+                            <td>{{ order.status }}</td>
+                            <td>
+                                <button class="btn btn-custom btn-sm toggle-details" data-order-id="{{ order.id }}">
+                                    訂單詳情
+                                </button>
+                                <a href="{{ url_for('admin.edit_order', order_id=order.id) }}" class="btn btn-custom-warning btn-sm">
+                                    修改訂單
+                                </a>
+                                <button class="btn btn-custom-danger btn-sm delete-order" data-order-id="{{ order.id }}">
+                                    刪除訂單
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- 隱藏的訂單詳情部分 -->
+                        <tr class="order-details d-none" id="details-{{ order.id }}">
+                            <td colspan="6">
+                                <div class="order-details-content">
+                                    <div>Loading details...</div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>目前沒有訂單紀錄。</p>
+    {% endif %}
+</div>
+{% endblock %}

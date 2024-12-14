@@ -1,0 +1,63 @@
+{% extends "index.html" %}
+
+{% block title %}購物車{% endblock %}
+
+{% block content %}
+<h2>我的購物車</h2>
+<div class="table-container">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>商品名稱</th>
+            <th>商品種類</th>
+            <th>商品容量</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th>總價</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.flavor }}</td>
+            <td>{{ item.size }}</td>
+            <td>NT$ {{ item.price }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>NT$ {{ item.total }}</td>
+            <td>
+                <form action="{{ url_for('cart.remove_from_cart', cart_item_id=item.id) }}" method="POST">
+                    <button type="submit" class="btn btn-custom-danger btn-sm">移除</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"><strong>總計</strong></td>
+            <td><strong>NT$ {{ total_price }}</strong></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+</div>
+<tfoot>
+    <tr>
+        <td colspan="3"><strong>總計</strong></td>
+        <td><strong>NT$ {{ total_price }}</strong></td>
+    </tr>
+    <tr>
+        <td colspan="5" class="text-right">
+            <div class="d-flex justify-content-end">
+                <a href="{{ url_for('product.list_products') }}" class="btn btn-custom mr-2">繼續購物</a>
+                <form action="{{ url_for('cart.checkout') }}" method="POST">
+                    <button type="submit" class="btn btn-custom-success">送出訂單</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+</tfoot>
+
+{% endblock %}

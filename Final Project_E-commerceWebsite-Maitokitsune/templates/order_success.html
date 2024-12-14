@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+
+{% block title %}訂單成功{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>訂單成功</h2>
+            </div>
+            <div class="card-body">
+                <p>感謝您的購買,您的訂單已經成功送出。</p>
+                <p>訂單編號: {{ order.id }}</p>
+                <p>總金額: NT$ {{ order.total_price }}</p>
+                <p>訂單時間: {{ order.created_at }}</p>
+                <p>請您完成以下事項：</p>
+                <ol>
+                    <li>請於24小時內加入LINE(@103szybb)告知收件人姓名核對訂單</li>
+                    <li>核對完訂單後會提供匯款資訊，請於收到資訊後24小時內完成匯款</li>
+                    <li>完成匯款後請於LINE回傳帳號後5碼以利對帳</li>
+                </ol>
+                <p>‼️如未於規定時間內完成將會被取消訂單‼️</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

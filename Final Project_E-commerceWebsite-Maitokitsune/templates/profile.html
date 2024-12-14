@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">會員資料</h2>
+    
+    <!-- 會員資料 -->
+    <div class="card">
+        <div class="card-header">
+            <h4>基本資訊</h4>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>姓名:</strong> {{ user_info.firstname }} {{ user_info.lastname }}</li>
+                <li class="list-group-item"><strong>Email:</strong> {{ user_info.email }}</li>
+                <li class="list-group-item"><strong>電話:</strong> {{ user_info.phone }}</li>
+                <li class="list-group-item"><strong>地址:</strong> {{ user_info.address }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 修改資料按鈕 -->
+    <div class="mt-4">
+        <a href="{{ url_for('auth.edit_profile') }}" class="btn btn-custom">修改資料</a>
+    </div>
+</div>
+{% endblock %}

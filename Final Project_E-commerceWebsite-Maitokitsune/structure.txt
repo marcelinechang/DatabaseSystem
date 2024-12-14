@@ -1,0 +1,52 @@
+.
+├── app.py
+├── blueprints
+│   ├── admin.py
+│   ├── auth.py
+│   ├── cart.py
+│   └── product.py
+├── config.py
+├── database.py
+├── init-products.py
+├── models
+│   ├── admin.py
+│   └── user.py
+├── static
+│   ├── admin_dog.jpg
+│   ├── buy_info.jpg
+│   ├── calendar.png
+│   ├── check.jpg
+│   ├── fairy.jpg
+│   ├── jpg
+│   ├── logo_nobakground.png
+│   ├── paperbag.jpg
+│   ├── rice_cookie_can.jpg
+│   ├── rice_cookie_flavor.jpg
+│   ├── snowball_can.jpg
+│   ├── snowball_flavor.jpg
+│   ├── tea.jpg
+│   ├── xmas.jpg
+│   └── xmas_cookie.jpg
+├── structure.txt
+└── templates
+    ├── admin
+    │   ├── add_product.html
+    │   ├── completed_orders.html
+    │   ├── dashboard.html
+    │   ├── edit_order.html
+    │   ├── edit_product.html
+    │   ├── login.html
+    │   ├── pending_orders.html
+    │   ├── product.html
+    │   └── register.html
+    ├── cart.html
+    ├── edit_profile.html
+    ├── index.html
+    ├── login.html
+    ├── order_success.html
+    ├── orders.html
+    ├── products.html
+    ├── profile.html
+    └── register.html
+
+6 directories, 44 files
