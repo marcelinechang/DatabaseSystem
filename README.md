@@ -10,6 +10,18 @@
 > Markdown document：https://markdown.tw/
 
  # Video Presentations for Final Project #
+[E-commerce Website - Maitokitsune](https://youtu.be/dQuAXjnWlO0) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/FinalProject_E-commerceWebsite-Maitokitsune)  / [Database ER Diagarm](https://app.eraser.io/workspace/Rsitlghy5ibG0Np2vQD6?origin=share)
+ [![IMAGE ALT TEXT](./FinalProject_E-commerceWebsite-Maitokitsune/presentation.jpg)](https://youtu.be/dQuAXjnWlO0 "Presentaion Video of Final Project")
+ * **Upcoming Appointments Section**:
+   * Displays a list of scheduled appointments over the next 7 days, including today.
+   * Includes relevant details such as appointment date, time, and pet information.
+* **Appointment CRUD Features Features**:
+   * Options to make new appointments for both existing and new pets.
+   * Interactive forms include fields for pet and owner details, type of service (grooming, boarding, medical), and appointment scheduling preferences.
+* **Filtering Options**:
+   * Allows filtering of appointments by species and type of service.
+
+ ![Screenshot](./FinalProject_E-commerceWebsite-Maitokitsune/er_diagram.png)
 
  # Video Presentations for Homework #
 
