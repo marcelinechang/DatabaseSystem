@@ -12,14 +12,21 @@
  # Video Presentations for Final Project #
 [E-commerce Website - Maitokitsune](https://youtu.be/dQuAXjnWlO0) / [Code](https://github.com/marcelinechang/DatabaseSystem/tree/main/FinalProject_E-commerceWebsite-Maitokitsune)  / [Database ER Diagarm](https://app.eraser.io/workspace/Rsitlghy5ibG0Np2vQD6?origin=share)
  [![IMAGE ALT TEXT](./FinalProject_E-commerceWebsite-Maitokitsune/presentation.jpg)](https://youtu.be/dQuAXjnWlO0 "Presentaion Video of Final Project")
- * **Upcoming Appointments Section**:
-   * Displays a list of scheduled appointments over the next 7 days, including today.
-   * Includes relevant details such as appointment date, time, and pet information.
-* **Appointment CRUD Features Features**:
-   * Options to make new appointments for both existing and new pets.
-   * Interactive forms include fields for pet and owner details, type of service (grooming, boarding, medical), and appointment scheduling preferences.
-* **Filtering Options**:
-   * Allows filtering of appointments by species and type of service.
+ * **Frontend (User Features)**:
+   * User Registration/Login: Secure account creation and access.
+   * Profile Management: Users can update their personal information.
+   * Product Browsing and Shopping Cart: View products, add items to the cart, and modify cart contents.
+   * Order Submission and History: Submit orders and review past orders.
+* **Backend (Administrator Features)**:
+   * Admin Registration/Login: Separate account system for administrators.
+   * Dashboard for Sales and Inventory: Visual representation of top 5 best-selling products and products with low stock levels (≤ 5 units).
+   * Product Management: Create, update, or delete products with ease.
+   * Order Management: Administrators can view, edit, or cancel orders.
+* **Additional Highlights**:
+   * Password Encryption: Passwords are hashed using werkzeug.security's generate_password_hash before being stored in the database, ensuring user security.
+   * User Feedback with Flash Messages: Utilizes Flask.flash and JavaScript for user notifications that automatically disappear after 2 seconds, enhancing user experience.
+   * Dynamic Order Details: Order details are dynamically displayed using JavaScript for better interactivity.
+   * Database Integrity: Foreign key relationships are utilized to maintain data consistency, ensuring cascaded deletion of related records.
 
  ![Screenshot](./FinalProject_E-commerceWebsite-Maitokitsune/er_diagram.png)
 
